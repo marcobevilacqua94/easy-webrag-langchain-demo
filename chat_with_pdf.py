@@ -7,6 +7,7 @@ import os
 import streamlit as st
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
+from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 
@@ -118,6 +119,7 @@ if __name__ == "__main__":
 
         # Ensure that all environment variables are set
         check_environment_variable("OPENAI_API_KEY")
+        check_environment_variable("GOOGLE_API_KEY")
         check_environment_variable("CB_HOSTNAME")
         check_environment_variable("CB_USERNAME")
         check_environment_variable("CB_PASSWORD")
@@ -153,8 +155,8 @@ if __name__ == "__main__":
         prompt = ChatPromptTemplate.from_template(template)
 
         # Use OpenAI GPT 4 as the LLM for the RAG
-        llm = ChatOpenAI(temperature=0, model="gpt-4-1106-preview", streaming=True)
-
+     #   llm = ChatOpenAI(temperature=0, model="gpt-4-1106-preview", streaming=True)
+        llm = ChatGoogleGenerativeAI(model="gemini-pro")
         # RAG chain
         chain = (
             {"context": retriever, "question": RunnablePassthrough()}
@@ -170,8 +172,8 @@ if __name__ == "__main__":
 
         prompt_without_rag = ChatPromptTemplate.from_template(template_without_rag)
 
-        llm_without_rag = ChatOpenAI(model="gpt-4-1106-preview")
-
+     #   llm_without_rag = ChatOpenAI(model="gpt-4-1106-preview")
+        llm_without_rag = ChatGoogleGenerativeAI(model="gemini-pro")
         chain_without_rag = (
             {"question": RunnablePassthrough()}
             | prompt_without_rag
