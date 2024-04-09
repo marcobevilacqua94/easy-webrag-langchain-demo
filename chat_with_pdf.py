@@ -1,6 +1,7 @@
 import tempfile
 from langchain_community.vectorstores import CouchbaseVectorStore
 from langchain_openai import OpenAIEmbeddings
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 import os
@@ -129,7 +130,8 @@ if __name__ == "__main__":
         check_environment_variable("CB_SEARCHINDEX")
 
         # Use OpenAI Embeddings
-        embedding = OpenAIEmbeddings()
+       # embedding = OpenAIEmbeddings()
+        embedding = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
 
         # Connect to Couchbase Vector Store
         cluster = connect_to_couchbase(CB_HOSTNAME, CB_USERNAME, CB_PASSWORD)
