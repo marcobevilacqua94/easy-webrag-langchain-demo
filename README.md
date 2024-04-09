@@ -50,6 +50,7 @@ For RAG, we are using LangChain, Couchbase Vector Search & OpenAI. We fetch part
   export CB_PASSWORD="<password_for_couchbase_cluster>"
   export OPENAI_API_KEY="<open_ai_api_key>"
   export WEB_LOGIN_PASSWORD="<password to access the streamlit app or ChatBot>"
+  export GOOGLE_API_KEY="<key>"
   ```
 
 - Note CB_HOSTNAME may not be the same as CB_FTSHOSTNAME.
