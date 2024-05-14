@@ -188,7 +188,7 @@ if __name__ == "__main__":
             "https://emoji.slack-edge.com/T024FJS4M/couchbase/4a361e948b15ed91.png"
         )
         openai_logo = (
-            "https://static-00.iconduck.com/assets.00/openai-icon-253x256-bamv50yy.png"
+            "https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/google-gemini-icon.png"
         )
 
         st.title("Chat with PDF")
