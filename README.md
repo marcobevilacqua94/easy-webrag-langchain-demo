@@ -1,12 +1,12 @@
-## RAG Demo using Couchbase, Streamlit, Langchain, and OpenAI
+## RAG Demo using Couchbase, Streamlit, Langchain, and Gemini
 
-This is a demo app built to chat with your custom PDFs using the vector search capabilities of Couchbase to augment the OpenAI results in a Retrieval-Augmented-Generation (RAG) model.
+This is a demo app built to chat with your custom PDFs using the vector search capabilities of Couchbase to augment the Gemini results in a Retrieval-Augmented-Generation (RAG) model.
 
 The demo will run for both self-managed OnPrem 7.6+ Couchbase deployments and also clould based 7.6+ Capella deployments
 
 ### Prerequisites 
 
-You will need a database user with login credentials to your Couchbase cluster and an OpenAI API bearer key for this Linux demo
+You will need a database user with login credentials to your Couchbase cluster and an Gemini API bearer key for this Linux demo
 
 You probably want to create and activate a virtual environment using the standard library’s virtual environment tool venv and install packages.
 
@@ -28,7 +28,7 @@ You can upload your PDFs with custom data & ask questions about the data in the 
 For each question, you will get two answers:
 
 - one using RAG (Couchbase logo)
-- one using pure LLM - OpenAI (🤖).
+- one using pure LLM - Gemini (🤖).
 
 For RAG, we are using LangChain, Couchbase Vector Search & OpenAI. We fetch parts of the PDF relevant to the question using Vector search & add it as the context to the LLM. The LLM is instructed to answer based on the context from the Vector Store.
 
