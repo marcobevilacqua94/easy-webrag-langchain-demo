@@ -30,7 +30,7 @@ For each question, you will get two answers:
 - one using RAG (Couchbase logo)
 - one using pure LLM - Gemini (🤖).
 
-For RAG, we are using LangChain, Couchbase Vector Search & OpenAI. We fetch parts of the PDF relevant to the question using Vector search & add it as the context to the LLM. The LLM is instructed to answer based on the context from the Vector Store.
+For RAG, we are using LangChain, Couchbase Vector Search & Gemini. We fetch parts of the PDF relevant to the question using Vector search & add it as the context to the LLM. The LLM is instructed to answer based on the context from the Vector Store.
 
 ### How to Configure
 
