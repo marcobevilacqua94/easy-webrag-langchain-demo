@@ -258,6 +258,9 @@ if __name__ == "__main__":
 
         # React to user input
         if question := st.chat_input("Ask a question based on the PDF(s)"):
+            # Reset show_rag_context to False on new question
+            st.session_state.show_rag_context = False
+
             # Display user message in chat message container
             st.chat_message("user").markdown(question)
 
@@ -266,11 +269,37 @@ if __name__ == "__main__":
                 {"role": "user", "content": question, "avatar": openai_logo}
             )
 
-            # Add placeholder for streaming the response
+            # Stream the response from the pure LLM
+            with st.chat_message("assistant", avatar=openai_logo):
+                message_placeholder_pure_llm = st.empty()
+
+            pure_llm_response = ""
+            for chunk in chain_without_rag.stream(question):
+                pure_llm_response += chunk
+                message_placeholder_pure_llm.markdown(pure_llm_response + "â")
+
+            message_placeholder_pure_llm.markdown(pure_llm_response)
+            st.session_state.messages.append(
+                {
+                    "role": "assistant",
+                    "content": pure_llm_response,
+                    "avatar": openai_logo,
+                }
+            )
+
+            # Capture context and question for display
+            rag_context = {"context": retriever.get_relevant_documents(question), "question": question}
+
+            # Save context in session state
+            st.session_state.rag_context = str(rag_context)
+
+            # Show the button after pure LLM response
+            st.session_state.show_rag_button = True
+
+            # Stream the response from the RAG
             with st.chat_message("assistant", avatar=couchbase_logo):
                 message_placeholder = st.empty()
 
-            # stream the response from the RAG
             rag_response = ""
             for chunk in chain.stream(question):
                 rag_response += chunk
@@ -282,26 +311,5 @@ if __name__ == "__main__":
                     "role": "assistant",
                     "content": rag_response,
                     "avatar": couchbase_logo,
-                }
-            )
-
-            # stream the response from the pure LLM
-
-            # Add placeholder for streaming the response
-            with st.chat_message("ai", avatar=openai_logo):
-                message_placeholder_pure_llm = st.empty()
-
-            pure_llm_response = ""
-
-            for chunk in chain_without_rag.stream(question):
-                pure_llm_response += chunk
-                message_placeholder_pure_llm.markdown(pure_llm_response + "â")
-
-            message_placeholder_pure_llm.markdown(pure_llm_response)
-            st.session_state.messages.append(
-                {
-                    "role": "assistant",
-                    "content": pure_llm_response,
-                    "avatar": openai_logo,
                 }
             )
