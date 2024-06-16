@@ -297,7 +297,7 @@ if __name__ == "__main__":
             )
 
             # Capture context and question for display
-            rag_context = {"context": retriever.get_relevant_documents(question), "question": question}
+            rag_context = {"context": retriever.get_relevant_documents(str(question)), "question": str(question)}
 
             # Save context in session state
             st.session_state.rag_context = str(rag_context)
