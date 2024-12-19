@@ -102,7 +102,7 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 try:
     pa = PasswordAuthenticator(os.getenv("CB_USERNAME"), os.getenv("CB_PASSWORD"))
-    cluster = Cluster("couchbases://" + os.getenv("CB_HOSTNAME") + "/?ssl=no_verify", ClusterOptions(pa))
+    cluster = Cluster(os.getenv("CB_HOSTNAME"), ClusterOptions(pa))
 except UnAmbiguousTimeoutException as e:
     print(f"Failed to connect to couchbases://" + os.getenv("CB_HOSTNAME") + "a/?ssl=no_verify due to UnAmbiguousTimeoutException.")
     print(f"Check that CB_HOSTNAME is set and that your IP is allowed to access the target service.")
